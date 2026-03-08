@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-LIBRARY • Digital Library System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Main Container */
+        .library-container {
+            max-width: 1300px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Header */
+        .header-classic {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #2563eb, #1e40af);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px -5px #2563eb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            color: white;
+        }
+
+        .logo-container:hover .upload-overlay {
+            opacity: 1;
+        }
+
+        .title-section h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .title-section p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .stats-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 12px 25px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .nav-classic {
+            background: #f1f5f9;
+            border-radius: 60px;
+            padding: 10px 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover {
+            background: white;
+            color: #2563eb;
+        }
+
+        .nav-item.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-classic {
+            background: linear-gradient(145deg, #2563eb, #1e40af);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        /* Why Choose Section */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 40px 0 20px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 40px;
+            background: #2563eb;
+            border-radius: 4px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border-radius: 30px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px #2563eb;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #dbeafe;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Popular Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .book-card {
+            background: #f8fafc;
+            border-radius: 25px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -8px #94a3b8;
+        }
+
+        .book-icon {
+            width: 40px;
+            height: 40px;
+            background: #dbeafe;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .book-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+
+        .book-author {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .book-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            color: #475569;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .book-stock {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .stock-available {
+            color: #16a34a;
+        }
+
+        .stock-low {
+            color: #ea580c;
+        }
+
+        .stock-none {
+            color: #dc2626;
+        }
+
+        /* Borrowings List */
+        .borrowings-list {
+            background: #f8fafc;
+            border-radius: 30px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .borrowing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .borrowing-item:last-child {
+            border-bottom: none;
+        }
+
+        .borrowing-info h4 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+
+        .borrowing-info p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .status-badge {
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-available {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .category-item {
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 12px 10px;
+            text-align: center;
+            font-weight: 500;
+            color: #475569;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-item:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: #f8fafc;
+            border-radius: 60px;
+            padding: 20px;
+            margin: 30px 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 1rem;
+            min-width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .search-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 35px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #1e40af;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .btn-login {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -8px #2563eb;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .features-grid,
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-classic {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .features-grid,
+            .books-grid,
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="library-container">
+        <!-- Header -->
+        <div class="header-classic">
+            <div class="logo-area">
+                <div class="logo-container" id="logoContainer">
+                    <i class="fas fa-mountain" id="defaultLogo"></i>
+                    <img src="" alt="Logo" class="logo-image" id="logoImage" style="display: none;">
+                    <div class="upload-overlay" onclick="document.getElementById('logoInput').click();">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="logoInput" accept="image/*" style="display: none;" onchange="uploadLogo(event)">
+                </div>
+                <div class="title-section">
+                    <h1>E-LIBRARY</h1>
+                    <p>Digital Library System</p>
+                </div>
+            </div>
+            <div class="stats-badge">
+                <i class="fas fa-book-open"></i>
+                <span>5,000+ Books Available</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-classic">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i> Home
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-book"></i> Browse
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-history"></i> Borrowings
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-star"></i> Favorites
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-user"></i> Profile
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-classic">
+            <h2 class="hero-title">Welcome to E-Library</h2>
+            <p class="hero-text">Your digital gateway to thousands of books, journals, and learning resources.</p>
+        </div>
+
+        <!-- Why Choose Section -->
+        <h2 class="section-title">Why Choose E-Library</h2>
+        <p style="color: #64748b; margin-bottom: 20px;">Modern library management for modern students</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-search"></i></div>
+                <h3 class="feature-title">Easy Search</h3>
+                <p class="feature-desc">Find books by title, author, or genre in seconds</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-history"></i></div>
+                <h3 class="feature-title">Borrowing History</h3>
+                <p class="feature-desc">Track all your past and current borrowings</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                <h3 class="feature-title">Due Date Reminders</h3>
+                <p class="feature-desc">Get notified before your books are due</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bookmark"></i></div>
+                <h3 class="feature-title">Reserve Books</h3>
+                <p class="feature-desc">Reserve popular books and get notified</p>
+            </div>
+        </div>
+
+        <!-- Popular Books -->
+        <h2 class="section-title">Popular Books</h2>
+        <p style="color: #64748b; margin-bottom: 20px;">Most borrowed books this month</p>
+
+        <div class="books-grid">
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-heart"></i></div>
+                <h3 class="book-title">Pride and Prejudice</h3>
+                <div class="book-author">Jane Austen</div>
+                <span class="book-category">Romance</span>
+                <div class="book-stock stock-low">
+                    <i class="fas fa-circle"></i> 1 left
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-question"></i></div>
+                <h3 class="book-title">The Hound of Baskervilles</h3>
+                <div class="book-author">Arthur C. Doyle</div>
+                <span class="book-category">Mystery</span>
+                <div class="book-stock stock-low">
+                    <i class="fas fa-circle"></i> 2 left
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-compass"></i></div>
+                <h3 class="book-title">Journey to the Center</h3>
+                <div class="book-author">Jules Verne</div>
+                <span class="book-category">Adventure</span>
+                <div class="book-stock stock-none">
+                    <i class="fas fa-circle"></i> 0 left
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-flask"></i></div>
+                <h3 class="book-title">A Brief History of Time</h3>
+                <div class="book-author">S. Hawking</div>
+                <span class="book-category">Academic</span>
+                <div class="book-stock stock-none">
+                    <i class="fas fa-circle"></i> 0 left
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-icon"><i class="fas fa-language"></i></div>
+                <h3 class="book-title">Amharic Literature</h3>
+                <div class="book-author">Various Authors</div>
+                <span class="book-category">Languages</span>
+                <div class="book-stock stock-none">
+                    <i class="fas fa-circle"></i> 0 left
+                </div>
+            </div>
+        </div>
+
+        <!-- My Borrowings -->
+        <h2 class="section-title">My Borrowings</h2>
+
+        <div class="borrowings-list">
+            <div class="borrowing-item">
+                <div class="borrowing-info">
+                    <h4>The Great Gatsby</h4>
+                    <p>F. Scott Fitzgerald</p>
+                </div>
+                <span class="status-badge status-available"><i class="fas fa-check-circle me-1"></i> Available</span>
+            </div>
+            <div class="borrowing-item">
+                <div class="borrowing-info">
+                    <h4>To Kill a Mockingbird</h4>
+                    <p>Harper Lee</p>
+                </div>
+                <span class="status-badge status-available"><i class="fas fa-check-circle me-1"></i> Available</span>
+            </div>
+            <div class="borrowing-item">
+                <div class="borrowing-info">
+                    <h4>1984</h4>
+                    <p>George Orwell</p>
+                </div>
+                <span class="status-badge status-available"><i class="fas fa-check-circle me-1"></i> Available</span>
+            </div>
+        </div>
+
+        <!-- Browse by Category -->
+        <h2 class="section-title">Browse by Category</h2>
+        <p style="color: #64748b; margin-bottom: 20px;">Explore our collection by genre</p>
+
+        <div class="categories-grid">
+            <div class="category-item">Science</div>
+            <div class="category-item">Romance</div>
+            <div class="category-item">Mystery</div>
+            <div class="category-item">Classic</div>
+            <div class="category-item">Adventure</div>
+            <div class="category-item">Fantasy</div>
+            <div class="category-item">Horror</div>
+            <div class="category-item">Thriller</div>
+            <div class="category-item">Crime</div>
+            <div class="category-item">Sci-Fi</div>
+            <div class="category-item">Biography</div>
+            <div class="category-item">Memoir</div>
+            <div class="category-item">Travel</div>
+            <div class="category-item">Non-Fiction</div>
+            <div class="category-item">Self-Help</div>
+            <div class="category-item">Inspirational</div>
+            <div class="category-item">Business</div>
+            <div class="category-item">Personal</div>
+            <div class="category-item">Other</div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 class="section-title">Quick Actions</h2>
+
+        <div class="search-section">
+            <input type="text" class="search-input" placeholder="Search by title, author, or ISBN...">
+            <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2 class="cta-title">Ready to Start Reading?</h2>
+            <p style="color: #64748b; margin-bottom: 25px;">Join thousands of students using our digital library</p>
+            <button class="btn-login"><i class="fas fa-user-lock"></i> Student Login</button>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 E-LIBRARY • Digital Library System | Everest School</p>
+            <p class="mt-2" style="color: #94a3b8;">Group Assignment - Computer Science | Grade 11</p>
+        </div>
+    </div>
+
+    <script>
+        // Logo upload function
+        function uploadLogo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const logoImage = document.getElementById('logoImage');
+                    const defaultLogo = document.getElementById('defaultLogo');
+                    
+                    defaultLogo.style.display = 'none';
+                    logoImage.style.display = 'block';
+                    logoImage.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Active nav item
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Active category
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                alert('Showing books in: ' + this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
