@@ -3,726 +3,1381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-LIBRARY • Digital Library System</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome 6 -->
+    <title>E-Library | Digital Library Management System</title>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            color: #f1f5f9;
+            overflow-x: hidden;
         }
-
-        /* Main Container */
-        .library-container {
-            max-width: 1300px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 40px;
-            padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        
+        /* ===== HEADER ===== */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
         }
-
-        /* Header */
-        .header-classic {
+        
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
+        
         .logo-container {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(145deg, #2563eb, #1e40af);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            box-shadow: 0 10px 25px -5px #2563eb;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .upload-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            cursor: pointer;
-            color: white;
-        }
-
-        .logo-container:hover .upload-overlay {
-            opacity: 1;
-        }
-
-        .title-section h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 5px;
-        }
-
-        .title-section p {
-            color: #64748b;
-            margin: 0;
-        }
-
-        .stats-badge {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 12px 25px;
-            border-radius: 60px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
-
-        /* Navigation */
-        .nav-classic {
-            background: #f1f5f9;
-            border-radius: 60px;
-            padding: 10px 20px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .nav-item {
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            color: #64748b;
-            transition: all 0.3s;
-            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
-        .nav-item:hover {
-            background: white;
-            color: #2563eb;
-        }
-
-        .nav-item.active {
-            background: #2563eb;
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
             color: white;
         }
-
-        /* Hero Section */
-        .hero-classic {
-            background: linear-gradient(145deg, #2563eb, #1e40af);
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 40px;
-            color: white;
+        
+        .logo-text {
+            line-height: 1.2;
         }
-
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
         }
-
-        .hero-text {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
+        
+        .logo-text p {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin: 0;
         }
-
-        /* Why Choose Section */
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin: 40px 0 20px;
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
             position: relative;
-            padding-left: 15px;
         }
-
-        .section-title:before {
+        
+        .nav-links a::after {
             content: '';
             position: absolute;
+            bottom: -5px;
             left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 5px;
-            height: 40px;
-            background: #2563eb;
-            border-radius: 4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            transition: width 0.3s ease;
         }
-
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+        
+        .btn-demo {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem !important;
+        }
+        
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-demo::after {
+            display: none !important;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #f1f5f9;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 5% 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%233b82f6" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: cover;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            animation: slideInLeft 1s ease;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #94a3b8;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #3b82f6;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-outline {
+            border: 2px solid #3b82f6;
+            color: #3b82f6;
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .hero-image {
+            animation: slideInRight 1s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .library-illustration {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 6rem 5%;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .section-title span {
+            color: #3b82f6;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+        
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin: 30px 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-
+        
         .feature-card {
-            background: #f8fafc;
-            border-radius: 30px;
-            padding: 25px;
-            transition: all 0.3s;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #334155;
         }
-
+        
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px #2563eb;
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.3);
         }
-
+        
         .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: #dbeafe;
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .feature-icon i {
+            font-size: 2.5rem;
+            color: #3b82f6;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        
+        .feature-card p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        /* ===== BOOKS GRID SECTION ===== */
+        .books-section {
+            padding: 6rem 5%;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(15, 23, 42, 0.7);
+            color: #f1f5f9;
+            border: 1px solid #334155;
+        }
+        
+        .search-bar input::placeholder {
+            color: #64748b;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .search-bar button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .book-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid #334155;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+        
+        .book-cover {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #2563eb;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
-
-        .feature-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #1e293b;
-            margin-bottom: 8px;
+        
+        .book-cover i {
+            font-size: 4rem;
+            color: white;
         }
-
-        .feature-desc {
-            color: #64748b;
-            font-size: 0.95rem;
-            line-height: 1.5;
+        
+        .book-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #f1f5f9;
         }
-
-        /* Popular Books Grid */
-        .books-grid {
+        
+        .book-author {
+            color: #3b82f6;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .book-info i {
+            color: #3b82f6;
+            margin-right: 5px;
+        }
+        
+        .book-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-available {
+            background: #166534;
+            color: #4ade80;
+        }
+        
+        .status-borrowed {
+            background: #7f1d1d;
+            color: #f87171;
+        }
+        
+        .borrow-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .borrow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .borrow-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #475569;
+        }
+        
+        /* ===== CATEGORIES SECTION ===== */
+        .categories {
+            padding: 6rem 5%;
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+        
+        .category-card {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #334155;
+        }
+        
+        .category-card:hover {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            transform: translateY(-5px);
+            border-color: transparent;
+        }
+        
+        .category-card:hover i,
+        .category-card:hover span {
+            color: white;
+        }
+        
+        .category-card i {
+            font-size: 2rem;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-card span {
+            display: block;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+        
+        /* ===== STUDENT PORTAL PREVIEW ===== */
+        .student-portal {
+            padding: 6rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .portal-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 1px solid #334155;
+        }
+        
+        .portal-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+        
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .history-item i {
+            color: #3b82f6;
+        }
+        
+        .history-info {
+            flex: 1;
+        }
+        
+        .history-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+            color: #f1f5f9;
+        }
+        
+        .history-info p {
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+        
+        .due-date {
+            color: #f87171;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* ===== TEAM SECTION (8 Members) ===== */
+        .team-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+        
+        .team-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin: 30px 0;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
         }
-
-        .book-card {
-            background: #f8fafc;
-            border-radius: 25px;
-            padding: 20px;
-            transition: all 0.3s;
+        
+        .team-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #334155;
         }
-
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px -8px #94a3b8;
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.3);
         }
-
-        .book-icon {
-            width: 40px;
-            height: 40px;
-            background: #dbeafe;
-            border-radius: 12px;
+        
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #2563eb;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+            border: 3px solid #3b82f6;
+        }
+        
+        .team-name {
             font-size: 1.2rem;
-            margin-bottom: 12px;
-        }
-
-        .book-title {
             font-weight: 700;
-            font-size: 1.1rem;
-            color: #1e293b;
-            margin-bottom: 3px;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
         }
-
-        .book-author {
-            color: #64748b;
+        
+        .team-role {
+            color: #3b82f6;
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
-
-        .book-category {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #e2e8f0;
-            border-radius: 50px;
-            color: #475569;
+        
+        .team-id {
+            color: #94a3b8;
             font-size: 0.8rem;
-            margin-bottom: 12px;
         }
-
-        .book-stock {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-
-        .stock-available {
-            color: #16a34a;
-        }
-
-        .stock-low {
-            color: #ea580c;
-        }
-
-        .stock-none {
-            color: #dc2626;
-        }
-
-        /* Borrowings List */
-        .borrowings-list {
-            background: #f8fafc;
-            border-radius: 30px;
-            padding: 25px;
-            margin: 30px 0;
-        }
-
-        .borrowing-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .borrowing-item:last-child {
-            border-bottom: none;
-        }
-
-        .borrowing-info h4 {
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 3px;
-        }
-
-        .borrowing-info p {
-            color: #64748b;
-            margin: 0;
-        }
-
-        .status-badge {
-            padding: 6px 15px;
+        
+        .team-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: rgba(59, 130, 246, 0.2);
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            color: #3b82f6;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
         }
-
-        .status-available {
-            background: #dcfce7;
-            color: #16a34a;
+        
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            text-align: center;
+            color: white;
         }
-
-        /* Categories Grid */
-        .categories-grid {
+        
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .cta .btn {
+            background: #0f172a;
+            color: white;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+        }
+        
+        .cta .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 30px rgba(15, 23, 42, 0.3);
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0f172a;
+            padding: 3rem 5%;
+            color: #94a3b8;
+            border-top: 1px solid #334155;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-            margin: 30px 0;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
         }
-
-        .category-item {
-            background: #f1f5f9;
-            border-radius: 40px;
-            padding: 12px 10px;
-            text-align: center;
-            font-weight: 500;
-            color: #475569;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .category-item:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-        /* Search Section */
-        .search-section {
-            background: #f8fafc;
-            border-radius: 60px;
-            padding: 20px;
-            margin: 30px 0;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            flex: 1;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 50px;
-            padding: 15px 25px;
-            font-size: 1rem;
-            min-width: 250px;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-        .search-btn {
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 35px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-
-        .search-btn:hover {
-            background: #1e40af;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
-            border-radius: 30px;
-            padding: 40px;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .cta-title {
+        
+        .footer-logo {
             font-size: 2rem;
             font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
         }
-
-        .btn-login {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
+        
+        .footer-links h4 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
         }
-
-        .btn-login:hover {
-            background: #1e40af;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px -8px #2563eb;
+        
+        .footer-links ul {
+            list-style: none;
         }
-
-        /* Footer */
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+        
+        .footer-bottom {
             text-align: center;
-            color: #64748b;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
         }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .features-grid,
-            .books-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        
+        .group-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            color: #94a3b8;
         }
-
-        @media (max-width: 768px) {
-            .header-classic {
-                flex-direction: column;
-                gap: 20px;
+        
+        .group-members span {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content,
+            .student-portal {
+                grid-template-columns: 1fr;
                 text-align: center;
             }
-            .features-grid,
-            .books-grid,
-            .categories-grid {
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid #334155;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 10px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+            
+            .footer-content {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="library-container">
-        <!-- Header -->
-        <div class="header-classic">
-            <div class="logo-area">
-                <div class="logo-container" id="logoContainer">
-                    <i class="fas fa-mountain" id="defaultLogo"></i>
-                    <img src="" alt="Logo" class="logo-image" id="logoImage" style="display: none;">
-                    <div class="upload-overlay" onclick="document.getElementById('logoInput').click();">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <input type="file" id="logoInput" accept="image/*" style="display: none;" onchange="uploadLogo(event)">
-                </div>
-                <div class="title-section">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
                     <h1>E-LIBRARY</h1>
                     <p>Digital Library System</p>
                 </div>
             </div>
-            <div class="stats-badge">
-                <i class="fas fa-book-open"></i>
-                <span>5,000+ Books Available</span>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#books">Books</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#student">My Account</a></li>
+                <li><a href="#team">Our Team</a></li>
+                <li><a href="student-login.html" class="btn-demo">Student Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge">
+                    <i class="fas fa-book-open"></i> 5,000+ Books Available
+                </div>
+                <h1>Digital Library<br><span>Management System</span></h1>
+                <p>Borrow, return, and manage books online. Access your school library anytime, anywhere.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5,000+</span>
+                        <span class="stat-label">Books</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Access</span>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <a href="#books" class="btn btn-primary">Browse Books</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Library" class="library-illustration">
             </div>
         </div>
-
-        <!-- Navigation -->
-        <div class="nav-classic">
-            <div class="nav-item active">
-                <i class="fas fa-home"></i> Home
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-book"></i> Browse
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-history"></i> Borrowings
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-star"></i> Favorites
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-user"></i> Profile
-            </div>
-        </div>
-
-        <!-- Hero Section -->
-        <div class="hero-classic">
-            <h2 class="hero-title">Welcome to E-Library</h2>
-            <p class="hero-text">Your digital gateway to thousands of books, journals, and learning resources.</p>
-        </div>
-
-        <!-- Why Choose Section -->
-        <h2 class="section-title">Why Choose E-Library</h2>
-        <p style="color: #64748b; margin-bottom: 20px;">Modern library management for modern students</p>
-
+    </section>
+    
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose <span>E-Library</span></h2>
+        <p class="section-subtitle">Modern library management for modern students</p>
+        
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-search"></i></div>
-                <h3 class="feature-title">Easy Search</h3>
-                <p class="feature-desc">Find books by title, author, or genre in seconds</p>
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Easy Search</h3>
+                <p>Find books by title, author, or genre in seconds</p>
             </div>
+            
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-history"></i></div>
-                <h3 class="feature-title">Borrowing History</h3>
-                <p class="feature-desc">Track all your past and current borrowings</p>
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Borrow & Return</h3>
+                <p>Manage your borrowed books with due dates</p>
             </div>
+            
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-bell"></i></div>
-                <h3 class="feature-title">Due Date Reminders</h3>
-                <p class="feature-desc">Get notified before your books are due</p>
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Borrowing History</h3>
+                <p>Track all your past and current borrowings</p>
             </div>
+            
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-bookmark"></i></div>
-                <h3 class="feature-title">Reserve Books</h3>
-                <p class="feature-desc">Reserve popular books and get notified</p>
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Due Date Reminders</h3>
+                <p>Get notified before your books are due</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Reserve Books</h3>
+                <p>Reserve popular books and get notified</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Admin Dashboard</h3>
+                <p>Librarians can manage the entire collection</p>
             </div>
         </div>
-
-        <!-- Popular Books -->
-        <h2 class="section-title">Popular Books</h2>
-        <p style="color: #64748b; margin-bottom: 20px;">Most borrowed books this month</p>
-
+    </section>
+    
+    <section class="books-section" id="books">
+        <h2 class="section-title">Popular <span>Books</span></h2>
+        <p class="section-subtitle">Most borrowed books this month</p>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search by title, author, or ISBN...">
+            <button><i class="fas fa-search"></i> Search</button>
+        </div>
+        
         <div class="books-grid">
+            <!-- Book 1 -->
             <div class="book-card">
-                <div class="book-icon"><i class="fas fa-heart"></i></div>
-                <h3 class="book-title">Pride and Prejudice</h3>
-                <div class="book-author">Jane Austen</div>
-                <span class="book-category">Romance</span>
-                <div class="book-stock stock-low">
-                    <i class="fas fa-circle"></i> 1 left
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
                 </div>
+                <h3>The Great Gatsby</h3>
+                <p class="book-author">F. Scott Fitzgerald</p>
+                <div class="book-info">
+                    <span><i class="fas fa-tag"></i> Fiction</span>
+                    <span><i class="fas fa-copy"></i> 3 left</span>
+                </div>
+                <span class="book-status status-available">Available</span>
+                <button class="borrow-btn">Borrow Now</button>
             </div>
+            
+            <!-- Book 2 -->
             <div class="book-card">
-                <div class="book-icon"><i class="fas fa-question"></i></div>
-                <h3 class="book-title">The Hound of Baskervilles</h3>
-                <div class="book-author">Arthur C. Doyle</div>
-                <span class="book-category">Mystery</span>
-                <div class="book-stock stock-low">
-                    <i class="fas fa-circle"></i> 2 left
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
                 </div>
+                <h3>To Kill a Mockingbird</h3>
+                <p class="book-author">Harper Lee</p>
+                <div class="book-info">
+                    <span><i class="fas fa-tag"></i> Classic</span>
+                    <span><i class="fas fa-copy"></i> 2 left</span>
+                </div>
+                <span class="book-status status-available">Available</span>
+                <button class="borrow-btn">Borrow Now</button>
             </div>
+            
+            <!-- Book 3 -->
             <div class="book-card">
-                <div class="book-icon"><i class="fas fa-compass"></i></div>
-                <h3 class="book-title">Journey to the Center</h3>
-                <div class="book-author">Jules Verne</div>
-                <span class="book-category">Adventure</span>
-                <div class="book-stock stock-none">
-                    <i class="fas fa-circle"></i> 0 left
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
                 </div>
+                <h3>1984</h3>
+                <p class="book-author">George Orwell</p>
+                <div class="book-info">
+                    <span><i class="fas fa-tag"></i> Dystopian</span>
+                    <span><i class="fas fa-copy"></i> 1 left</span>
+                </div>
+                <span class="book-status status-available">Available</span>
+                <button class="borrow-btn">Borrow Now</button>
             </div>
+            
+            <!-- Book 4 -->
             <div class="book-card">
-                <div class="book-icon"><i class="fas fa-flask"></i></div>
-                <h3 class="book-title">A Brief History of Time</h3>
-                <div class="book-author">S. Hawking</div>
-                <span class="book-category">Academic</span>
-                <div class="book-stock stock-none">
-                    <i class="fas fa-circle"></i> 0 left
+                <div class="book-cover">
+                    <i class="fas fa-book"></i>
                 </div>
-            </div>
-            <div class="book-card">
-                <div class="book-icon"><i class="fas fa-language"></i></div>
-                <h3 class="book-title">Amharic Literature</h3>
-                <div class="book-author">Various Authors</div>
-                <span class="book-category">Languages</span>
-                <div class="book-stock stock-none">
-                    <i class="fas fa-circle"></i> 0 left
+                <h3>Pride and Prejudice</h3>
+                <p class="book-author">Jane Austen</p>
+                <div class="book-info">
+                    <span><i class="fas fa-tag"></i> Romance</span>
+                    <span><i class="fas fa-copy"></i> 0 left</span>
                 </div>
+                <span class="book-status status-borrowed">Borrowed</span>
+                <button class="borrow-btn" disabled>Unavailable</button>
             </div>
         </div>
-
-        <!-- My Borrowings -->
-        <h2 class="section-title">My Borrowings</h2>
-
-        <div class="borrowings-list">
-            <div class="borrowing-item">
-                <div class="borrowing-info">
-                    <h4>The Great Gatsby</h4>
-                    <p>F. Scott Fitzgerald</p>
-                </div>
-                <span class="status-badge status-available"><i class="fas fa-check-circle me-1"></i> Available</span>
-            </div>
-            <div class="borrowing-item">
-                <div class="borrowing-info">
-                    <h4>To Kill a Mockingbird</h4>
-                    <p>Harper Lee</p>
-                </div>
-                <span class="status-badge status-available"><i class="fas fa-check-circle me-1"></i> Available</span>
-            </div>
-            <div class="borrowing-item">
-                <div class="borrowing-info">
-                    <h4>1984</h4>
-                    <p>George Orwell</p>
-                </div>
-                <span class="status-badge status-available"><i class="fas fa-check-circle me-1"></i> Available</span>
-            </div>
-        </div>
-
-        <!-- Browse by Category -->
-        <h2 class="section-title">Browse by Category</h2>
-        <p style="color: #64748b; margin-bottom: 20px;">Explore our collection by genre</p>
-
+    </section>
+    
+    <section class="categories" id="categories">
+        <h2 class="section-title">Browse by <span>Category</span></h2>
+        <p class="section-subtitle">Explore our collection by genre</p>
+        
         <div class="categories-grid">
-            <div class="category-item">Science</div>
-            <div class="category-item">Romance</div>
-            <div class="category-item">Mystery</div>
-            <div class="category-item">Classic</div>
-            <div class="category-item">Adventure</div>
-            <div class="category-item">Fantasy</div>
-            <div class="category-item">Horror</div>
-            <div class="category-item">Thriller</div>
-            <div class="category-item">Crime</div>
-            <div class="category-item">Sci-Fi</div>
-            <div class="category-item">Biography</div>
-            <div class="category-item">Memoir</div>
-            <div class="category-item">Travel</div>
-            <div class="category-item">Non-Fiction</div>
-            <div class="category-item">Self-Help</div>
-            <div class="category-item">Inspirational</div>
-            <div class="category-item">Business</div>
-            <div class="category-item">Personal</div>
-            <div class="category-item">Other</div>
+            <div class="category-card">
+                <i class="fas fa-robot"></i>
+                <span>Science Fiction</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-heart"></i>
+                <span>Romance</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-skull"></i>
+                <span>Mystery</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-flask"></i>
+                <span>Science</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-child"></i>
+                <span>Children's</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Academic</span>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-language"></i>
+                <span>Languages</span>
+            </div>
         </div>
-
-        <!-- Quick Actions -->
-        <h2 class="section-title">Quick Actions</h2>
-
-        <div class="search-section">
-            <input type="text" class="search-input" placeholder="Search by title, author, or ISBN...">
-            <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+    </section>
+    
+    <section class="student-portal" id="student">
+        <div class="portal-card">
+            <h3><i class="fas fa-user-graduate"></i> My Borrowings</h3>
+            
+            <div class="history-item">
+                <i class="fas fa-book"></i>
+                <div class="history-info">
+                    <h4>The Great Gatsby</h4>
+                    <p>Borrowed: Mar 1, 2026</p>
+                </div>
+                <div class="due-date">Due in 3 days</div>
+            </div>
+            
+            <div class="history-item">
+                <i class="fas fa-book"></i>
+                <div class="history-info">
+                    <h4>1984</h4>
+                    <p>Borrowed: Feb 25, 2026</p>
+                </div>
+                <div class="due-date" style="color: #f87171;">Overdue by 2 days</div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="#" style="color: #3b82f6; text-decoration: none;">View all history →</a>
+            </div>
         </div>
-
-        <!-- CTA Section -->
-        <div class="cta-section">
-            <h2 class="cta-title">Ready to Start Reading?</h2>
-            <p style="color: #64748b; margin-bottom: 25px;">Join thousands of students using our digital library</p>
-            <button class="btn-login"><i class="fas fa-user-lock"></i> Student Login</button>
+        
+        <div class="portal-card">
+            <h3><i class="fas fa-clock"></i> Quick Actions</h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button class="borrow-btn" style="margin: 0;">Search Books</button>
+                <button class="borrow-btn" style="margin: 0; background: transparent; border: 2px solid #3b82f6; color: #3b82f6;">Reserve a Book</button>
+                <button class="borrow-btn" style="margin: 0; background: #7f1d1d; color: #f87171;">Report Lost Book</button>
+            </div>
         </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2026 E-LIBRARY • Digital Library System | Everest School</p>
-            <p class="mt-2" style="color: #94a3b8;">Group Assignment - Computer Science | Grade 11</p>
+    </section>
+    
+    <!-- ===== TEAM SECTION (8 Members) ===== -->
+    <section class="team-section" id="team">
+        <h2 class="section-title">Our <span>Team</span></h2>
+        <p class="section-subtitle">Group Assignment - Computer Science | Grade 12</p>
+        
+        <div class="team-grid">
+            <!-- Member 1 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Abebe Kebede</h3>
+                <p class="team-role">Team Leader</p>
+                <p class="team-id">ID: STU-001</p>
+                <span class="team-badge">Frontend Developer</span>
+            </div>
+            
+            <!-- Member 2 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Almaz Tadesse</h3>
+                <p class="team-role">Frontend Developer</p>
+                <p class="team-id">ID: STU-002</p>
+                <span class="team-badge">UI/UX Designer</span>
+            </div>
+            
+            <!-- Member 3 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Biruk Ayele</h3>
+                <p class="team-role">Backend Developer</p>
+                <p class="team-id">ID: STU-003</p>
+                <span class="team-badge">Database Specialist</span>
+            </div>
+            
+            <!-- Member 4 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Chaltu Mohammed</h3>
+                <p class="team-role">Backend Developer</p>
+                <p class="team-id">ID: STU-004</p>
+                <span class="team-badge">API Integration</span>
+            </div>
+            
+            <!-- Member 5 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Dawit Mekonnen</h3>
+                <p class="team-role">UI/UX Designer</p>
+                <p class="team-id">ID: STU-005</p>
+                <span class="team-badge">Graphic Designer</span>
+            </div>
+            
+            <!-- Member 6 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Eyerusalem Haile</h3>
+                <p class="team-role">Tester</p>
+                <p class="team-id">ID: STU-006</p>
+                <span class="team-badge">QA Specialist</span>
+            </div>
+            
+            <!-- Member 7 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Fikadu Tesfaye</h3>
+                <p class="team-role">Documentation</p>
+                <p class="team-id">ID: STU-007</p>
+                <span class="team-badge">Technical Writer</span>
+            </div>
+            
+            <!-- Member 8 -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="team-name">Genet Worku</h3>
+                <p class="team-role">Project Manager</p>
+                <p class="team-id">ID: STU-008</p>
+                <span class="team-badge">Coordinator</span>
+            </div>
         </div>
-    </div>
-
+    </section>
+    
+    <section class="cta">
+        <h2>Ready to Start Reading?</h2>
+        <p>Join thousands of students using our digital library</p>
+        <a href="student-login.html" class="btn">Student Login</a>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">E-LIBRARY</div>
+                <p style="color: #94a3b8;">Your digital library, anywhere, anytime</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#books">Books</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#student">My Account</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> library@everest.edu.et</li>
+                    <li><i class="fas fa-phone"></i> +251 11 123 4567</li>
+                    <li><i class="fas fa-map-marker"></i> Alam Gena Campus</li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 8:00 - 17:00</li>
+                    <li>Sat: 9:00 - 13:00</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="group-members">
+                <span>Group Members:</span> Abebe K., Almaz T., Biruk A., Chaltu M., Dawit M., Eyerusalem H., Fikadu T., Genet W.
+            </div>
+            <p style="margin-top: 1rem;">© 2026 E-Library - Digital Library Management System | Everest School</p>
+            <p style="color: #64748b; margin-top: 0.5rem;">Group Assignment - Computer Science | Grade 12</p>
+        </div>
+    </footer>
+    
     <script>
-        // Logo upload function
-        function uploadLogo(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const logoImage = document.getElementById('logoImage');
-                    const defaultLogo = document.getElementById('defaultLogo');
-                    
-                    defaultLogo.style.display = 'none';
-                    logoImage.style.display = 'block';
-                    logoImage.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
             }
-        }
-
-        // Active nav item
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileBtn.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
             });
         });
-
-        // Active category
-        document.querySelectorAll('.category-item').forEach(item => {
-            item.addEventListener('click', function() {
-                alert('Showing books in: ' + this.textContent);
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
             });
         });
     </script>
